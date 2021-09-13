@@ -54,8 +54,17 @@ function agregarAlCarrito(titulo) {
   }
 
   
-  localStorage.carrito = json.stringify (carrito);
+  localStorage.carrito = JSON.stringify (carrito);
   document.getElementById("contador").innerHTML = carrito.length
+}
+
+const btnCarrito = document.getElementById("carritoBtn")
+if (btnCarrito) {
+  btnCarrito.addEventListener("click", toggleCarrito)
+}
+function toggleCarrito(e) {
+  e.preventDefault();
+  console.log(carrito);
 }
 
 
