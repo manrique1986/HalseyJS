@@ -20,7 +20,7 @@ const carrito = [];
 let acumulador = ``
 
 baseDeDatos.forEach((Producto) => {
-  acumulador += ` <div class="col mb-5">
+  $("#halsey").append (` <div class="col mb-5">
   <div  class="card h-100">
       <!-- Product image-->
       <img  class="card-img-top" src="${Producto.img}" alt="..." />
@@ -38,11 +38,11 @@ baseDeDatos.forEach((Producto) => {
           <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" onclick="agregarAlCarrito ('${Producto.titulo}')" >Agregar al carrito</a></div>
       </div>
   </div>
-</div>`
+</div>`)
 });
 
 
-$("#halsey").html(acumulador)
+
 
 
 
@@ -57,7 +57,7 @@ function agregarAlCarrito(titulo) {
 
   
   localStorage.carrito = JSON.stringify (carrito);
-  document.getElementById("contador").innerHTML = carrito.length
+  $("#contador").innerHTML = carrito.length
 }
 
 const btnCarrito = document.getElementById("carritoBtn")
