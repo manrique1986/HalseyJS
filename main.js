@@ -21,9 +21,9 @@ let acumulador = ``
 
 baseDeDatos.forEach((Producto) => {
   acumulador += ` <div class="col mb-5">
-  <div class="card h-100">
+  <div  class="card h-100">
       <!-- Product image-->
-      <img class="card-img-top" src="${Producto.img}" alt="..." />
+      <img  class="card-img-top" src="${Producto.img}" alt="..." />
       <!-- Product details-->
       <div class="card-body p-4">
           <div class="text-center">
@@ -42,7 +42,8 @@ baseDeDatos.forEach((Producto) => {
 });
 
 
-document.getElementById("halsey").innerHTML = acumulador;
+$("#halsey").html(acumulador)
+
 
 
 function agregarAlCarrito(titulo) {
@@ -53,6 +54,7 @@ function agregarAlCarrito(titulo) {
     alert("no se agrego")
   }
 
+
   
   localStorage.carrito = JSON.stringify (carrito);
   document.getElementById("contador").innerHTML = carrito.length
@@ -61,6 +63,7 @@ function agregarAlCarrito(titulo) {
 const btnCarrito = document.getElementById("carritoBtn")
 if (btnCarrito) {
   btnCarrito.addEventListener("click", toggleCarrito)
+  
 }
 function toggleCarrito(e) {
   e.preventDefault();
