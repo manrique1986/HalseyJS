@@ -35,7 +35,7 @@ baseDeDatos.forEach((Producto) => {
       </div>
       <!-- Product actions-->
       <div  class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-          <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" onclick="agregarAlCarrito ('${Producto.titulo}')" >Agregar al carrito</a></div>
+          <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" onclick="agregarAlCarrito" ('${Producto.titulo}')>Agregar al carrito</a></div>
       </div>
   </div>
 </div>`)
@@ -70,30 +70,29 @@ function toggleCarrito(e) {
   console.log(carrito);
 }
 
-  const elemento = { "items": baseDeDatos }
-  baseDeDatos.map(Producto =>{
-  return{
+const elemento = { "items": baseDeDatos }
+baseDeDatos.map(Producto => {
+  return {
     "title": Producto.titulo,
     "description": "",
     "picture_url": Producto.img,
     "category_id": "",
-    "quantity": "4",
+    "quantity": "4  ",
     "currency_id": "ars",
     "unit_price": Producto.precio
   }
 })
 
 
-  $.ajaxSetup({
-    headers: {
-        'Authorization': ' Bearer TEST-6688975118803074-092601-8dcdc1d59ccffc35459e5cc3918742b5-162133676',
-        'Content-Type': 'application/json'
-    }
-  });
+$.ajaxSetup({
+  headers: {
+    'Authorization': ' Bearer TEST-6688975118803074-092601-8dcdc1d59ccffc35459e5cc3918742b5-162133676',
+    'Content-Type': 'application/json'
+  }
+});
 
-  $.post ("https://api.mercadopago.com/checkout/preferences", JSON.stringify (elemento), function(respuesta, status){
-    console.log (respuesta);
-  });
+$.post("https://api.mercadopago.com/checkout/preferences", JSON.stringify(elemento), function (respuesta, status) {
+  console.log(respuesta);
+});
 
 
-  
