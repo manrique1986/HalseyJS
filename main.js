@@ -14,7 +14,7 @@ const productoCuatro = new Producto("Honey", 250, "img/honey.jpg")
 
 
 const baseDeDatos = [productoUno, productoDos, productoTres, productoCuatro];
-const carrito = [];
+const carrito = localStorage.getItem("carrito") || []
 
 
 let acumulador = ``
@@ -70,8 +70,8 @@ function toggleCarrito(e) {
   console.log(carrito);
 }
 
-const elemento = { "items": baseDeDatos }
-baseDeDatos.map(Producto => {
+const elemento = { "items": carrito }
+carrito.map(Producto => {
   return {
     "title": Producto.titulo,
     "description": "",
@@ -91,7 +91,7 @@ $.ajaxSetup({
   }
 });
 
-$.post("https://api.mercadopago.com/checkout/preferences", JSON.stringify(elemento), function (respuesta, status) {
+$.post("https://api.mercadopago.com/checkout/preferences", JSON.stringify(elemento), (respuesta, status) => {
   console.log(respuesta);
 });
 
