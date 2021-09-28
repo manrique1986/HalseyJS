@@ -14,7 +14,7 @@ const productoCuatro = new Producto("Honey", 250, "img/honey.jpg")
 
 
 const baseDeDatos = [productoUno, productoDos, productoTres, productoCuatro];
-const carrito = localStorage.getItem("carrito") || []
+const carrito = []
 
 
 let acumulador = ``
@@ -69,30 +69,4 @@ function toggleCarrito(e) {
   e.preventDefault();
   console.log(carrito);
 }
-
-const elemento = { "items": carrito }
-carrito.map(Producto => {
-  return {
-    "title": Producto.titulo,
-    "description": "",
-    "picture_url": Producto.img,
-    "category_id": "",
-    "quantity": "4  ",
-    "currency_id": "ars",
-    "unit_price": Producto.precio
-  }
-})
-
-
-$.ajaxSetup({
-  headers: {
-    'Authorization': ' Bearer TEST-6688975118803074-092601-8dcdc1d59ccffc35459e5cc3918742b5-162133676',
-    'Content-Type': 'application/json'
-  }
-});
-
-$.post("https://api.mercadopago.com/checkout/preferences", JSON.stringify(elemento), (respuesta, status) => {
-  console.log(respuesta);
-});
-
 
