@@ -1,4 +1,5 @@
 
+
 class Producto {
   constructor(titulo, precio, img) {
     this.titulo = titulo;
@@ -14,14 +15,14 @@ const productoCuatro = new Producto("Honey", 250, "img/honey.jpg")
 
 
 const baseDeDatos = [productoUno, productoDos, productoTres, productoCuatro];
-const carrito = localStorage.getItem("carrito") || [];
+const carrito = [];
 
 
 let acumulador = ``
 
 baseDeDatos.forEach((Producto) => {
-  $("#halsey").append(` <div class="col mb-5">
-  <div id=cerveza  class="card h-100">
+  acumulador += ` <div class="col mb-5">
+  <div  class="card h-100">
       <!-- Product image-->
       <img  class="card-img-top" src="${Producto.img}" alt="..." />
       <!-- Product details-->
@@ -34,16 +35,15 @@ baseDeDatos.forEach((Producto) => {
           </div>
       </div>
       <!-- Product actions-->
-      <div  class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-          <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" onclick="agregarAlCarrito" ('${Producto.titulo}')>Agregar al carrito</a></div>
+      <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+          <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" onclick="agregarAlCarrito ('${Producto.titulo}')" >Agregar al carrito</a></div>
       </div>
   </div>
-</div>`)
-  const cerveza = $("#cerveza")
+</div>`
 });
 
 
-
+$("#halsey").html(acumulador)
 
 
 
@@ -55,34 +55,39 @@ function agregarAlCarrito(titulo) {
     alert("no se agrego")
   }
 
-  localStorage.carrito = JSON.stringify(carrito)
-  $("#contador").innerHTML = carrito.length
 
+  
+  localStorage.carrito = JSON.stringify (carrito);
+  document.getElementById("contador").innerHTML = carrito.length
 }
 
-const btnCarrito = document.getElementById("carritoBtn");
+const btnCarrito = document.getElementById("carritoBtn")
 if (btnCarrito) {
   btnCarrito.addEventListener("click", toggleCarrito)
-
+  
 }
 function toggleCarrito(e) {
   e.preventDefault();
   console.log(carrito);
 }
 
-const elemento = { "items": baseDeDatos }
-baseDeDatos.map(Producto =>{
-return{
-  "title": Producto.titulo,
-  "description": "",
-  "picture_url": Producto.img,
-  "category_id": "",
-  "quantity": "4",
-  "currency_id": "ars",
-  "unit_price": Producto.precio
-}
+
+
+
+
+const elementosMercadopago = baseDeDatos.map(Producto => {
+  return {
+      "title": Producto.nombre,
+      "description": "Halsey",
+      "picture_url": Producto.img,
+      "category_id": "",
+      "quantity": 1,
+      "currency_id": "ARS",
+      "unit_price": Producto.precio
+  }
 })
 
+const elemento = { "items": elementosMercadopago }
 
 $.ajaxSetup({
   headers: {
@@ -91,6 +96,9 @@ $.ajaxSetup({
   }
 });
 
-$.post ("https://api.mercadopago.com/checkout/preferences", JSON.stringify (elemento), function(respuesta, status){
+const URLPAGO = "https://api.mercadopago.com/checkout/preferences"
+
+$.post (URLPAGO, JSON.stringify (elemento ),(respuesta, status)=>{
   console.log (respuesta);
 });
+
