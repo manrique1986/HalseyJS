@@ -56,15 +56,15 @@ function agregarAlCarrito(titulo) {
   }
 
 
-  
-  localStorage.carrito = JSON.stringify (carrito);
+
+  localStorage.carrito = JSON.stringify(carrito);
   document.getElementById("contador").innerHTML = carrito.length
 }
 
 const btnCarrito = document.getElementById("carritoBtn")
 if (btnCarrito) {
   btnCarrito.addEventListener("click", toggleCarrito)
-  
+
 }
 function toggleCarrito(e) {
   e.preventDefault();
@@ -77,28 +77,32 @@ function toggleCarrito(e) {
 
 const elementosMercadopago = baseDeDatos.map(Producto => {
   return {
-      "title": Producto.nombre,
-      "description": "Halsey",
-      "picture_url": Producto.img,
-      "category_id": "",
-      "quantity": 1,
-      "currency_id": "ARS",
-      "unit_price": Producto.precio
+    "title": Producto.nombre,
+    "description": "Halsey",
+    "picture_url": Producto.img,
+    "category_id": "",
+    "quantity": 1,
+    "currency_id": "ARS",
+    "unit_price": Producto.precio
   }
 })
 
-const elemento = { "items": elementosMercadopago }
+const pagar = () => {
 
-$.ajaxSetup({
-  headers: {
+
+  const elemento = { "items": elementosMercadopago }
+
+  $.ajaxSetup({
+    headers: {
       'Authorization': ' Bearer TEST-6688975118803074-092601-8dcdc1d59ccffc35459e5cc3918742b5-162133676',
       'Content-Type': 'application/json'
-  }
-});
+    }
+  });
 
-const URLPAGO = "https://api.mercadopago.com/checkout/preferences"
+  const URLPAGO = "https://api.mercadopago.com/checkout/preferences"
 
-$.post (URLPAGO, JSON.stringify (elemento ),(respuesta, status)=>{
-  console.log (respuesta);
-});
-
+  $.post(URLPAGO, JSON.stringify(elemento), (respuesta, status) => {
+    abrirPestaña = respuesta.init_point
+    window.open(`${abrirPestaña}`);
+  });
+}
