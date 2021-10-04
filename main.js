@@ -55,8 +55,6 @@ function agregarAlCarrito(titulo) {
     alert("no se agrego")
   }
 
-
-
   localStorage.carrito = JSON.stringify(carrito);
   document.getElementById("contador").innerHTML = carrito.length
 }
@@ -71,27 +69,31 @@ function toggleCarrito(e) {
   console.log(carrito);
 }
 
+let comprando = document.getElementById("comprar")
+comprando.addEventListener('click', clicked)
+
+function clicked(){
+window.open("carrito.html")
+}
 
 
 
 
-const elementosMercadopago = baseDeDatos.map(Producto => {
-  return {
-    "title": Producto.nombre,
-    "description": "Halsey",
-    "picture_url": Producto.img,
+const totalFinal = {"items": [
+  {
+    "title": "Halsey",
+    "description": "",
+    "picture_url": '',
     "category_id": "",
     "quantity": 1,
     "currency_id": "ARS",
-    "unit_price": Producto.precio
-  }
-})
-
-const pagar = () => {
+    "unit_price": precioTotal
+}]
+}
 
 
-  const elemento = { "items": elementosMercadopago }
-
+const pagar = (i) => {
+let totalFinal = i ;
   $.ajaxSetup({
     headers: {
       'Authorization': ' Bearer TEST-6688975118803074-092601-8dcdc1d59ccffc35459e5cc3918742b5-162133676',
@@ -101,8 +103,7 @@ const pagar = () => {
 
   const URLPAGO = "https://api.mercadopago.com/checkout/preferences"
 
-  $.post(URLPAGO, JSON.stringify(elemento), (respuesta, status) => {
-    abrirPestaña = respuesta.init_point
-    window.open(`${abrirPestaña}`);
+  $.post(URLPAGO, JSON.stringify(totalFinal), (respuesta, status) => {
+    console.log(respuesta)
   });
 }
