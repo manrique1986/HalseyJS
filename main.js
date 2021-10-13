@@ -129,7 +129,7 @@ const totalFinal = {"items": [
     "description": "",
     "picture_url": "/img/logo halsey.jpg",
     "category_id": "",
-    "quantity": 1,
+    "quantity": 50,
     "currency_id": "ARS",
     "unit_price": precioTotal
 }]
@@ -148,7 +148,6 @@ $.ajaxSetup({
 const URLPAGO = "https://api.mercadopago.com/checkout/preferences"
 
 $.post(URLPAGO, JSON.stringify(totalFinal), (respuesta, status) => {
-  Pago = respuesta.init_point
-  window.open(`${Pago}`);
+ console.log(respuesta)
 });
   }}
