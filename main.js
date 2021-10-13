@@ -1,5 +1,3 @@
-
-
 class Producto {
   constructor(titulo, precio, img) {
     this.titulo = titulo;
@@ -15,7 +13,12 @@ const productoCuatro = new Producto("Honey", 250, "img/honey.jpg")
 
 
 const baseDeDatos = [productoUno, productoDos, productoTres, productoCuatro];
+
+
 const carrito = [];
+
+
+
 
 
 let acumulador = ``
@@ -69,13 +72,54 @@ function toggleCarrito(e) {
   console.log(carrito);
 }
 
+
+listado ();
+
+function listado(){
+  let acumulador = ``;
+  carrito.forEach((producto) => {
+  acumulador += `<tr>
+  <td> <img src="${producto.img}" width=100</td>
+  <td>${producto.titulo}</td>
+  <td>$ ${producto.precio}</td>
+  <td>
+      <a href="#" class="borrar-producto bi bi-x-square" style="font-size: 30px" data-id="${producto.titulo}" onclick="borrarProducto('${producto.titulo}')"></a>
+  </td>
+  </tr>`
+  });
+
+  $("#listado").html(acumulador)
+}
+
+function borrarProducto(titulo){
+  const productoEncontrado = baseDeDatos.filter(Producto => Producto.titulo != titulo);
+  if (productoEncontrado.length > 0 ){
+      carrito =  productoEncontrado
+  }else{
+      carrito = []
+  }
+  
+  localStorage.carrito = JSON.stringify(carrito);
+  document.getElementById("contador").innerHTML = carrito.length;
+  listado(); 
+  location.reload();
+}
+
+
+let precioTotal = 0
+
+carrito.forEach(Producto => { precioTotal += Producto.precio });
+$("#total").html("$ " + precioTotal);
+
+
+
+
 let comprando = document.getElementById("comprar")
 comprando.addEventListener('click', clicked)
 
-function clicked(){
-window.open("carrito.html")
+function clicked() {
+  window.open("carrito.html")
 }
-
 
 
 
@@ -83,7 +127,7 @@ const totalFinal = {"items": [
   {
     "title": "Halsey",
     "description": "",
-    "picture_url": '',
+    "picture_url": "/img/logo halsey.jpg",
     "category_id": "",
     "quantity": 1,
     "currency_id": "ARS",
@@ -91,19 +135,20 @@ const totalFinal = {"items": [
 }]
 }
 
+function pagar(i){ 
+  let totalFinal = i;
+  if (precioTotal != 0){
+$.ajaxSetup({
+  headers: {
+    'Authorization': ' Bearer TEST-6688975118803074-092601-8dcdc1d59ccffc35459e5cc3918742b5-162133676',
+    'Content-Type': 'application/json'
+  }
+});
 
-const pagar = (i) => {
-let totalFinal = i ;
-  $.ajaxSetup({
-    headers: {
-      'Authorization': ' Bearer TEST-6688975118803074-092601-8dcdc1d59ccffc35459e5cc3918742b5-162133676',
-      'Content-Type': 'application/json'
-    }
-  });
+const URLPAGO = "https://api.mercadopago.com/checkout/preferences"
 
-  const URLPAGO = "https://api.mercadopago.com/checkout/preferences"
-
-  $.post(URLPAGO, JSON.stringify(totalFinal), (respuesta, status) => {
-    console.log(respuesta)
-  });
-}
+$.post(URLPAGO, JSON.stringify(totalFinal), (respuesta, status) => {
+  Pago = respuesta.init_point
+  window.open(`${Pago}`);
+});
+  }}
