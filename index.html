@@ -12,12 +12,12 @@
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/estilos.css">
-    <script src="/css/jquery-3.5.1.min.js"></script>
-    <script src="/main.js" defer></script>
-  
-    
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="estilos.css">
+    <script src="css/jquery-3.5.1.min.js"></script>
+    <script src="main.js" defer></script>
+
+
 </head>
 
 <body>
@@ -34,26 +34,51 @@
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false"></a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          
+
                         </ul>
                     </li>
                 </ul>
+
                 <form id="carritoBtn" class="d-flex">
-                    <button id= "comprar" class="btn btn-outline-dark" type="submit">
+                    <button class="btn btn-outline-dark" type="submit" data-bs-toggle="modal" data-bs-target="#myModal">
                         <i class="bi-cart-fill me-1"></i>
                         Carrito
-                        <span id= "contador" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                        <span id="contador" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                     </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Su compra</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="carritoModal">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <p>Total: $</p>
+                                    <p id="total"></p>
+                                    <button class="btn btn-danger" id="boton-vaciar">Vaciar</button>
+                                    <button type="button" class="btn btn-primary" id="buttonBuy">Comprar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
-            </div> 
+            </div>
         </div>
     </nav>
-    
+
     <!-- Header-->
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1  class=" bounce-in-top titulo   display-4 fw-bolder">HALSEY</h1>
+                <h1 class=" bounce-in-top titulo   display-4 fw-bolder">HALSEY</h1>
                 <p class=" tracking-in-expand-fwd-bottom lead fw-normal text-white-50 mb-0">Cerveza artesanal</p>
             </div>
         </div>
@@ -62,7 +87,7 @@
     <section class="py-5">
 
         <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"  id="halsey">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="halsey">
 
             </div>
         </div>
@@ -80,7 +105,7 @@
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    
+
 </body>
 
 </html>

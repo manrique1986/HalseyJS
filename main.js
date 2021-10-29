@@ -91,6 +91,9 @@ function listado(){
   $("#listado").html(acumulador)
 }
 
+
+
+
 function borrarProducto(titulo){
   const productoEncontrado = baseDeDatos.filter(Producto => Producto.titulo != titulo);
   if (productoEncontrado.length > 0 ){
@@ -105,7 +108,7 @@ function borrarProducto(titulo){
   location.reload();
 }
 
-
+////////**** de aca para abajo no funciona/////////////////////////////////////////////////////////
 let precioTotal = 0
 
 carrito.forEach(Producto => { precioTotal += Producto.precio });
@@ -114,12 +117,6 @@ $("#total").html("$ " + precioTotal);
 
 
 
-let comprando = document.getElementById("comprar")
-comprando.addEventListener('click', clicked)
-
-function clicked() {
-  window.open("carrito.html")
-}
 
 
 
@@ -151,3 +148,7 @@ $.post(URLPAGO, JSON.stringify(totalFinal), (respuesta, status) => {
  console.log(respuesta)
 });
   }}
+  
+
+
+
